@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+        <div class="contain-all">
+            <div id="container-shadow" onclick="closeModal(this.id)"></div>
+            <header id="menu">
+                <span id="menu-title">
+                    <b>J</b>ust<b>S</b>tream<b>I</b>t
+                </span>
+                <div id="menu-buttons">
+                    <button id="menu-button-home"><em>Accueil</em></button>
+                    <button id="menu-button-category"><em>Catégories</em></button>
+                </div>
+            </header>
+            <h1 id="best-movie-category">Film du moment</h1>
+            <div id="best-movie" style="">
+                <section id="best-movie-informations">
+                    <h1 id="best-movie-name"></h1>
+                    <article id="best-movie-description">
+                        <p>That creepy doll Charlotte is back with all new tales of shock and disgust. Charlotte takes you on an otherworldly journey of frightening tales of unspeakable terror that will thrill you and chill you.</p>
+                    </article>
+                    <button id="best-movie-button" class="open-modal">Play</button>
+                </section>
+                <img id="best-movie-picture" src=""/>
+            </div>
+            <div id="movie-modal">
+                <div id="movie-modal-header">
+                    <h2 id="movie-modal-title">title</h2>
+                </div>
+                <div id="movie-modal-content">
+                    <div id="movie-modal-data">
+                        <li id="movie-data-li">
+                            <label for="movie-genre">Genre:</label>
+                            <ul id="movie-genre"></ul>
+                            <label for="movie-resume">Résumé du film:</label>
+                            <ul id="movie-resume"></ul>
+                            <label for="movie-release">Date de sortie:</label>
+                            <ul id="movie-release"></ul>
+                            <label for="movie-language">Langue:</label>
+                            <ul id="movie-language"></ul>
+                            <label for="movie-duration">Durée:</label>
+                            <ul id="movie-duration"></ul>
+                            <label for="movie-countries">Pays d'origine:</label>
+                            <ul id="movie-countries"></ul>
+                            <label for="movie-year">Année de sortie:</label>
+                            <ul id="movie-year"></ul>
+                            <label for="movie-imdb-score">Note:</label>
+                            <ul id="movie-imdb-score"></ul>
+                            <label for="movie-imdb-votes">Votes:</label>
+                            <ul id="movie-imdb-votes"></ul>
+                            <label for="movie-writers">Auteur:</label>
+                            <ul id="movie-writers"></ul>
+                            <label for="movie-directors">Realisateur:</label>
+                            <ul id="movie-directors"></ul>
+                            <label for="movie-actors">Acteurs:</label>
+                            <ul id="movie-actors"></ul>
+                            <label for="movie-worldwideGrossIncome">Résultats box office:</label>
+                            <ul id="movie-worldwideGrossIncome"></ul>
+                        </li>
+                    </div>
+                    <div id="movie-modal-picture">
+                        <img src="" id="movie-img" style=""/>
+                    </div>
+                </div>
+                <div id="movie-modal-footer">
+                    <button id="movie-modal-close" onclick="closeModal(this.id)">Fermer</button>
+                </div>
+            </div>
+        </div>
+        <div class="slider-container">
+            <label for="slider-best-movies">Selection des meilleurs films</label>
+            <div class="slider" id="slider-best-movies" >
+                <div class="slide">
+                    <img src="" alt="" id="slide-best-movies-index-0" class="open-modal"/>
+                </div>
+                <div class="slide open-modal">
+                    <img src="" alt="" id="slide-best-movies-index-1" class="open-modal"/>
+                </div>
+                <div class="slide">
+                    <img src="" alt="" id="slide-best-movies-index-2" class="open-modal"/>
+                </div>
+                <div class="slide">
+                    <img src="" alt="" id="slide-best-movies-index-3" class="open-modal"/>
+                </div>
+                <div class="slide">
+                    <img src="" alt="" id="slide-best-movies-index-4" class="open-modal"/>
+                </div>
+                <div class="slide">
+                    <img src="" alt="" id="slide-best-movies-index-5" class="open-modal"/>
+                </div>
+                <div class="slide">
+                    <img src="" alt="" id="slide-best-movies-index-6" class="open-modal"/>
+                </div>
+                <button class="btn btn-next" id="movies-next">></button>
+                <button class="btn btn-prev" id="movies-prev"><</button>
+            </div>
+            <label for="slider-best-crime-movies">Selection des meilleurs films de crimes</label>
+            <div class="slider" id="slider-best-crime-movies">
+                <div class="slide">
+                    <img src="" alt="" id="slide-best-crime-index-0" class="open-modal"/>
+                </div>
+                <div class="slide">
+                    <img src="" alt="" id="slide-best-crime-index-1" class="open-modal"/>
+                </div>
+                <div class="slide">
+                    <img src="" alt="" id="slide-best-crime-index-2" class="open-modal"/>
+                </div>
+                <div class="slide">
+                    <img src="" alt="" id="slide-best-crime-index-3" class="open-modal"/>
+                </div>
+                <div class="slide">
+                    <img src="" alt="" id="slide-best-crime-index-4" class="open-modal"/>
+                </div>
+                <div class="slide">
+                    <img src="" alt="" id="slide-best-crime-index-5" class="open-modal"/>
+                </div>
+                <div class="slide">
+                    <img src="" alt="" id="slide-best-crime-index-6" class="open-modal"/>
+                </div>
+                <button class="btn btn-next" id="crime-next">></button>
+                <button class="btn btn-prev" id="crime-prev"><</button>
+            </div>
+            <label for="slider-best-horror-movies">Selection des meilleurs films d'horreur</label>
+            <div class="slider" id="slider-best-horror-movies">
+                <div class="slide">
+                    <img src="" alt="" id="slide-best-horror-index-0" class="open-modal"/>
+                </div>
+                <div class="slide">
+                    <img src="" alt="" id="slide-best-horror-index-1" class="open-modal"/>
+                </div>
+                <div class="slide">
+                    <img src="" alt="" id="slide-best-horror-index-2" class="open-modal"/>
+                </div>
+                <div class="slide">
+                    <img src="" alt="" id="slide-best-horror-index-3" class="open-modal"/>
+                </div>
+                <div class="slide">
+                    <img src="" alt="" id="slide-best-horror-index-4" class="open-modal"/>
+                </div>
+                <div class="slide">
+                    <img src="" alt="" id="slide-best-horror-index-5" class="open-modal"/>
+                </div>
+                <div class="slide">
+                    <img src="" alt="" id="slide-best-horror-index-6" class="open-modal"/>
+                </div>
+                <button class="btn btn-next" id="horror-next">></button>
+                <button class="btn btn-prev" id="horror-prev"><</button>
+            </div>
+            <label for="slider-best-animation-movies">Selection des meilleurs films d'animation</label>
+            <div class="slider" id="slider-best-animation-movies">
+                <div class="slide">
+                    <img src="" alt="" id="slide-best-animation-index-0" class="open-modal"/>
+                </div>
+                <div class="slide">
+                    <img src="" alt="" id="slide-best-animation-index-1" class="open-modal"/>
+                </div>
+                <div class="slide">
+                    <img src="" alt="" id="slide-best-animation-index-2" class="open-modal"/>
+                </div>
+                <div class="slide">
+                    <img src="" alt="" id="slide-best-animation-index-3" class="open-modal"/>
+                </div>
+                <div class="slide">
+                    <img src="" alt="" id="slide-best-animation-index-4" class="open-modal"/>
+                </div>
+                <div class="slide">
+                    <img src="" alt="" id="slide-best-animation-index-5" class="open-modal"/>
+                </div>
+                <div class="slide">
+                    <img src="" alt="" id="slide-best-animation-index-6" class="open-modal"/>
+                </div>
+                <button class="btn btn-next" id="animation-next">></button>
+                <button class="btn btn-prev" id="animation-prev"><</button>
+            </div>
+        </div>
+    </body>
+</html>
+ <script src="script.js"></script>
