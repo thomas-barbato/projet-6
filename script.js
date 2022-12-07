@@ -3,31 +3,33 @@ let modal = document.querySelector("#movie-modal");
 let main_div = document.querySelector('.contain-all')
 let container_shadow = document.querySelector('#container-shadow')
 let open_modal_selector = document.getElementsByClassName('open-modal');
+let carousel_prev_button = document.getElementsByClassName('btn-prev');
+let carousel_next_button = document.getElementsByClassName('btn-next');
+let slider_container_selector = document.querySelector(".slider-container")
 
-window.addEventListener('load', (event) =>{
-    getBestMovie()
-    getMovieList()
-    getMovieList(movie_category="crime")
-    getMovieList(movie_category="horror")
-    getMovieList(movie_category="animation")
-})
+getBestMovie()
+getMovieList([null, "crime", "horror", "animation"])
 
 Array.prototype.forEach.call(open_modal_selector, function(element) {
   element.addEventListener('click', function() {
-    let modal_class = element.className.split(' ')[1];
+    class_name_len = element.className.split(' ').length;
+    let modal_class = class_name_len == 2 ? element.className.split(' ')[1] : element.className.split(' ')[2];
+    setModalData(modal_class);
     modal.style.display == "none" ? modal.style.display = "grid" : modal.style.display = "none";
     if(modal.style.display == "grid"){
-        document.querySelector("#best-movie").style.display = "none";
         container_shadow.style.display = "block";
         document.querySelector('html').style.background = "#101215";
-        setModalData(modal_class);
-    }else{
-        container_shadow.style.display = "none";
-        document.querySelector('html').style.background = "#282c34";
     }
   });
 });
 
+function closeModal(id){
+    let selector = document.querySelector("#"+id);
+    selector.addEventListener("click", event => {
+        modal.style.display = "none";
+        container_shadow.style.display = "none";
+    });
+}
 
 // return connexion error when used...
 function UrlExists(url) {
@@ -40,14 +42,13 @@ function UrlExists(url) {
             return false;
     }
 
-function getMovieList(movie_category=null){
+function getMovieList(movie_category=[]){
+    for(let i = 0; i < movie_category.length; i++){
     let url_imdb = "";
     let id_movie_cat = ""
-    if(movie_category != null){
-
-        url_imdb = url + "?sort_by=-imdb_score&genre=" + movie_category;
-        id_movie_cat = "#slide-best-" + movie_category + "-index-";
-
+    if(movie_category[i] != null){
+        url_imdb = url + "?sort_by=-imdb_score&genre=" + movie_category[i];
+        id_movie_cat = "#slide-best-" + movie_category[i] + "-index-";
     }else{
         url_imdb = url + "?sort_by=-imdb_score";
         id_movie_cat = "#slide-best-movies-index-";
@@ -59,11 +60,14 @@ function getMovieList(movie_category=null){
                 return response.json();
             }
         }).then(function(json){
-            for(let i = 0; i < 5 ; i++){
-                id = id_movie_cat + i;
-                document.querySelector(id).src = json.results[i].image_url;
-                document.querySelector(id).alt = json.results[i].title;
-                document.querySelector(id).classList.add(json.results[i].id);
+            for(let index = 0; index < 5 ; index++){
+                id = id_movie_cat + index;
+                document.querySelector(id).src = json.results[index].image_url;
+                document.querySelector(id).alt = json.results[index].title;
+                document.querySelector(id).classList.add(json.results[index].id);
+                if(index == 4){
+                    document.querySelector(id).style.display = "none";
+                }
             }
             return json.next
         }).then(function(next){
@@ -72,15 +76,17 @@ function getMovieList(movie_category=null){
                     return next_response.json();
                 }
             }).then(function(json){
-                for(let i = 0; i < 3 ; i++){
-                    id_nb = 4 + i;
-                    id = id_movie_cat + id_nb;
-                    document.querySelector(id).src = json.results[i].image_url;
-                    document.querySelector(id).alt = json.results[i].title;
-                    document.querySelector(id).classList.add(json.results[i].id)
+                for(let index = 1; index < 3 ; index++){
+                    let id_nb = 4 + index;
+                    let id = id_movie_cat + id_nb;
+                    document.querySelector(id).src = json.results[index].image_url;
+                    document.querySelector(id).alt = json.results[index].title;
+                    document.querySelector(id).classList.add(json.results[index].id);
+                    document.querySelector(id).style.display = "none";
                 }
             })
         })
+    }
 }
 
 function getBestMovie(){
@@ -90,9 +96,7 @@ function getBestMovie(){
         /* get promise */
         return response.json();
       }).then(function(json){
-        return json.results[0].id
-      }).then(function(id){
-        let url_imdb_movie_id = url + id;
+        let url_imdb_movie_id = url + json.results[0].id;
         fetch(url_imdb_movie_id)
             .then(function(response){
                 return response.json();
@@ -103,37 +107,8 @@ function getBestMovie(){
                 document.querySelector("#best-movie-button").classList.add(json.id);
             })
       })
-}
 
-/* not used for now
-function getMovieCategories(){
-    let url_movie_cat = "http://localhost:8000/api/v1/genres/";
-    const cat_array = new Array();
-    fetch(url_movie_cat)
-        .then(function(response){
-            return response.json();
-        }).then(function(json){
-            for (var i=0; i < json.results.length; i++) {
-                cat_array.push(json.results[i]['name']);
-            }
-        })
-        return cat_array;
-} */
-/*
-function createModal(id){
-    selector = document.querySelector("#"+id);
-    selector.addEventListener('click', event => {
-        modal.style.display == "none" ? modal.style.display = "grid" : modal.style.display = "none";
-        if(modal.style.display == "grid"){
-            container_shadow.style.display = "block";
-            document.querySelector('html').style.background = "#101215";
-            setModalData(id);
-        }else{
-            container_shadow.style.display = "none";
-            document.querySelector('html').style.background = "#282c34";
-        }
-    })
-}*/
+}
 
 function setModalData(id){
     let url_imdb = url + id;
@@ -142,44 +117,74 @@ function setModalData(id){
         /* get promise */
         return response.json();
     }).then(function(json){
-        fetch(url + json.id)
-            .then(function(response){
-                console.log(response.json)
-                return response.json();
-            }).then(function(json){
-                // selected movie data
-                document.querySelector("#movie-modal-title").innerHTML = json.title;
-                document.querySelector("#movie-resume").innerHTML = json.long_description;
-                document.querySelector("#movie-img").src = json.image_url;
-                document.querySelector("#movie-actors").innerHTML = json.actors;
-                document.querySelector("#movie-genre").innerHTML = json.genres;
-                document.querySelector("#movie-imdb-score").innerHTML = json.imdb_score;
-                document.querySelector("#movie-writers").innerHTML = json.writers;
-                document.querySelector("#movie-actors").innerHTML = json.actors;
-                document.querySelector("#movie-year").innerHTML = json.year;
-                document.querySelector("#movie-directors").innerHTML = json.directors;
-                document.querySelector("#movie-imdb-votes").innerHTML = json.votes;
-                document.querySelector("#movie-release").innerHTML = json.date_published;
-                document.querySelector("#movie-language").innerHTML = json.languages;
-                document.querySelector("#movie-duration").innerHTML = json.duration + " mins";
-                document.querySelector("#movie-countries").innerHTML = json.countries;
-                if(json.worldwide_gross_income){
-                    document.querySelector("#movie-worldwideGrossIncome").innerHTML = json.worldwide_gross_income;
-                }else{
-                    document.querySelector("#movie-worldwideGrossIncome").innerHTML = "Non communiqués"
-                }
-
-
-
-            })
+       // selected movie data
+        document.querySelector("#movie-modal-title").innerHTML = json.title;
+        document.querySelector("#movie-resume").innerHTML = json.long_description;
+        document.querySelector("#movie-img").src = json.image_url;
+        document.querySelector("#movie-actors").innerHTML = json.actors;
+        document.querySelector("#movie-genre").innerHTML = json.genres;
+        document.querySelector("#movie-imdb-score").innerHTML = json.imdb_score;
+        document.querySelector("#movie-writers").innerHTML = json.writers;
+        document.querySelector("#movie-actors").innerHTML = json.actors;
+        document.querySelector("#movie-year").innerHTML = json.year;
+        document.querySelector("#movie-directors").innerHTML = json.directors;
+        document.querySelector("#movie-imdb-votes").innerHTML = json.votes;
+        document.querySelector("#movie-release").innerHTML = json.date_published;
+        document.querySelector("#movie-language").innerHTML = json.languages;
+        document.querySelector("#movie-duration").innerHTML = json.duration + " mins";
+        document.querySelector("#movie-countries").innerHTML = json.countries;
+        if(json.worldwide_gross_income){
+            document.querySelector("#movie-worldwideGrossIncome").innerHTML = json.worldwide_gross_income;
+        }else{
+            document.querySelector("#movie-worldwideGrossIncome").innerHTML = "Non communiqués"
+        }
     })
 }
 
-function closeModal(id){
-    const selector = document.querySelector("#"+id);
-    selector.addEventListener("click", event => {
-        document.querySelector("#best-movie").style.display = "flex";
-        modal.style.display = "none";
-        container_shadow.style.display = "none";
-    });
-}
+Array.prototype.forEach.call(carousel_prev_button, function(element) {
+  element.addEventListener('click', function() {
+    let movie_category_selector = document.querySelectorAll(".slide-best-"+element.id.split('-')[0]);
+    let array = [];
+    for(let index = 0; index < movie_category_selector.length ; index++){
+        if(movie_category_selector[index].style.display == ""){
+            array.push((movie_category_selector[index].id).split('-')[4])
+        }
+    }
+    if(array[0] > 0){
+        movie_category_selector[array[array.length-1]].style.display = "none";
+        // clear last index
+        array.pop()
+        // get prev index
+        prev_index = parseInt(array[0]) - 1
+        // push new value in array
+        array.unshift((movie_category_selector[prev_index].id).split('-')[4])
+        // display new value.
+        movie_category_selector[prev_index].style.display = "";
+    }
+
+  });
+});
+
+
+Array.prototype.forEach.call(carousel_next_button, function(element) {
+  element.addEventListener('click', function() {
+    let movie_category_selector = document.querySelectorAll(".slide-best-"+element.id.split('-')[0]);
+    let array = [];
+    for(let index = 0; index < movie_category_selector.length ; index++){
+        if(movie_category_selector[index].style.display == ""){
+            array.push((movie_category_selector[index].id).split('-')[4])
+        }
+    }
+    if(array[array.length-1] < 6){
+        movie_category_selector[array[0]].style.display = "none";
+        // clear index 0
+        array.shift()
+        // get next index
+        next_index = parseInt(array[array.length-1]) + 1
+        // push new value in array
+        array.push((movie_category_selector[next_index].id).split('-')[4])
+        // display new value.
+        movie_category_selector[next_index].style.display = "";
+    }
+  });
+});
