@@ -469,6 +469,16 @@ h1, article, label.slider-label{
     display:flex;
     justify-content:center;
     align-items:center;
+    background-color: #30a039 ;
+    color:whitesmoke;
+    border: none;
+    border-radius: 5px;
+}
+
+#movie-modal-close:hover{
+    transform:scale(1.2);
+    background-color: #40bf29;
+    color:white;
 }
 
 label{

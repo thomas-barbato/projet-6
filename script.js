@@ -7,7 +7,7 @@ let close_modal_selector = document.getElementsByClassName('close-modal');
 let carousel_prev_button = document.getElementsByClassName('btn-prev');
 let carousel_next_button = document.getElementsByClassName('btn-next');
 let slider_container_selector = document.querySelector(".slider-container")
-let i = 0;
+
 
 getBestMovie()
 getMovieList([null, "crime", "horror", "animation"])
