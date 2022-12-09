@@ -6,7 +6,7 @@
     </head>
     <body>
         <div class="contain-all">
-            <div id="container-shadow" onclick="closeModal(this.id)"></div>
+            <div id="container-shadow" class="close-modal"></div>
             <header id="menu">
                 <span id="menu-title">
                     <b>J</b>ust<b>S</b>tream<b>I</b>t
@@ -67,11 +67,11 @@
                     </div>
                 </div>
                 <div id="movie-modal-footer">
-                    <button id="movie-modal-close" onclick="closeModal(this.id)">Fermer</button>
+                    <button id="movie-modal-close" class="close-modal">Fermer</button>
                 </div>
             </div>
         </div>
-        <div class="slider-container">
+        <div class="slider-container" style="margin-bottom:10vh;">
             <label for="slider-best-movies" class="slider-label">Selection des meilleurs films</label>
             <div class="slider" id="slider-best-movies">
             <button class="btn btn-prev" id="movies-prev"><</button>
