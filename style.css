@@ -506,12 +506,12 @@ p {
     width:100vw;
     display:flex;
     justify-content:center;
-
 }
 
 .slide{
     display: inline-block;
 }
+
 .slide:hover{
   transform:scale(1.2);
 }
