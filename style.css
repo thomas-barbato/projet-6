@@ -514,4 +514,5 @@ p {
 
 .slide:hover{
   transform:scale(1.2);
+  border:2px white solid;
 }
