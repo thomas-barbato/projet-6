@@ -76,7 +76,7 @@
     .slider-container{
       display: grid;
       gap: 3vh;
-      grid-auto-rows: 10vh;
+      grid-auto-rows: 25vh;
       grid-template-areas:
         "a a a a a a a"
       justify-content:end;
@@ -86,7 +86,7 @@
 
     .slide>img{
         width:15vw;
-        max-height:20vh;
+        min-height:25vh;
     }
 
 }
@@ -515,4 +515,28 @@ p {
 .slide:hover{
   transform:scale(1.2);
   border:2px white solid;
+}
+
+.btn-next, .btn-prev{
+    background-color:green;
+    border-color:green;
+    color:whitesmoke;
+}
+
+.btn-next{
+    border-radius:0px 15px 15px 0px;
+}
+.btn-prev{
+    border-radius:15px 0px 0px 15px;
+}
+
+.btn-next:hover, .btn-prev:hover{
+    background-color:#04f931;
+    border-color:#04f931;
+    color:black;
+
+}
+
+.slider-container{
+    margin-bottom:10vh;
 }
