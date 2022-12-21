@@ -518,8 +518,8 @@ p {
 }
 
 .btn-next, .btn-prev{
-    background-color:green;
-    border-color:green;
+    background-color:#ff7f00;
+    border-color:#ff7f00;
     color:whitesmoke;
 }
 
@@ -531,8 +531,8 @@ p {
 }
 
 .btn-next:hover, .btn-prev:hover{
-    background-color:#04f931;
-    border-color:#04f931;
+    background-color:#f7c604;
+    border-color:#f7c604;
     color:black;
 
 }
